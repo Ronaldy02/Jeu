@@ -39,6 +39,8 @@ function test() {
         if (motEssayéArray[i]===motArray[i]){
           cellule[i] = "rgb(0, 255, 30)";
           motEssayéArray[i] = null;
+          motArray[i] = null;
+          
           // Ajout du score pour LTP
           score[essai - 1] = score[essai - 1] + (6 - essai) * 20;
           document.getElementById("C" + String(essai) + (i + 1)).style.backgroundColor = cellule[i];
@@ -48,7 +50,8 @@ function test() {
       for (let i = 0; i < motArray.length; i++) {
         if (motEssayéArray[i]!==null && motArray.includes(motEssayéArray[i])){
           cellule[i] = "yellow";
-          // Ajout du score pour LTP
+
+          // Ajout du score pour LT
           score[essai - 1] = score[essai - 1] + (6 - essai) * 10;
           document.getElementById("C" + String(essai) + (i + 1)).style.backgroundColor = cellule[i];    
         }
@@ -71,6 +74,7 @@ function test() {
       if (essai === 5 && motEssayé !== mot) {
         document.getElementById("Resultat").innerText = "Game Over !!!";
         document.getElementById("Resultat").style.color = "red";
+        document.getElementById("motatrouver").innerText ="Le mot à trouver était : " + mot;
       }
 
       // Affichage du score

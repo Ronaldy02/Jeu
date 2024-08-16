@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="test.css">
+    <title>Player</title>
+</head>
+<body>
+    <div class="poste" id="Attaquant">
+        <h4>Attaquant </h4>
+        <h4 class="noteG" id="noteA"></h4>
+    </div>
+    <div class="poste" id="Milieu">
+        <p ><h4>Milieu</h4></p>
+        <p><h4 class="noteG" id="noteM" >45</h4></p>
+        <p>Tir  45</p>
+    </div>
+    <div class="poste" id="Defenseur">
+        <h4>Defenseur </h4>
+        <h4 class="noteG" id="noteD"></h4>
+    </div>
+    <script>
+        // function note(){
+            let tir=34;
+            let def=84;
+            let pas=72;
+            let vit=77;
+            let dri=66;
+            let phy=84;
+           
+            // Note Attaquant
+            let At = Math.round(((tir * 40) + (def * 5) + (pas * 15) + (vit * 10) + (dri * 20) + (phy * 10)) / 100, 0);
+            document.getElementById("noteA").innerText = At;
+
+            // Note Milieu
+            let Mi = Math.round(((tir * 15) + (def * 20) + (pas * 25) + (vit * 15) + (dri * 15) + (phy * 30)) / 100, 0);
+            document.getElementById("noteM").innerText = Mi;
+           
+            // Note Defenseur
+            let Def = Math.round(((tir*3)+(def*50)+(pas*7)+(vit*7)+(dri*3)+(phy*30))/100,0);
+            document.getElementById("noteD").innerText=Def;
+        // }
+    </script>
+</body>
+</html>

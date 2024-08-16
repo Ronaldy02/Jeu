@@ -1,0 +1,31 @@
+div{
+    width: 180px;
+    height: 180px;
+    padding: 10px;
+    margin: 5px;
+    
+}
+
+.poste{
+    text-align: center;
+}
+.noteG{
+    display: flex;
+    float: right;
+    justify-content: center;
+    align-items:center ;
+    background-color: aqua;
+    width: 30px;
+    height: 30px;
+    border-radius: 55px;
+    margin: 0px;
+}
+#Attaquant{
+    background-color: green;
+}
+#Milieu {
+    background-color: blue;
+}
+#Defenseur {
+    background-color: red;
+}
