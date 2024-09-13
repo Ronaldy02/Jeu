@@ -20,59 +20,40 @@ fetch("ListeDeMots.csv").then(response => response.text()).then(data => {
 
 
 const input=document.getElementById("mot");
-const form=document.getElementById("submit");
+
 
 
 function test() {
-    motEssayé = document.getElementById("mot").value.toUpperCase();
+  motEssayé = document.getElementById("mot").value.toUpperCase();
+  let motArray=mot.split('');
+  let motEssayéArray= motEssayé.split('');
+
     if (motEssayé.length=== 5){
       // Si le mot a 5 lettres
       var cellule = Array(5).fill("");
       ++essai;
 
-      // Verification si la lettre tentée est bonne et ajout des couleurs
+      // Verification si chaque lettre du mot tenté est bon et ajout des couleurs
 
-      for (let i = 0; i < mot.length; i++) {
-        for (let j = 0; j < motEssayé.length; j++) {
-          if (mot[i] === motEssayé[j]) {
-            if (mot[i] !== motEssayé[i]) {
-              cellule[j] = "yellow";
-              // Ajout du score pour LT
-              score[essai - 1] = score[essai - 1] + (6 - essai) * 10;
-              break;
-            } else {
-              cellule[j] = "rgb(0, 255, 30)";
-              // Ajout du score pour LTP
-              score[essai - 1] = score[essai - 1] + (6 - essai) * 20;
-              break;
-            }
-          }
+      for (let i = 0; i < motArray.length; i++) {
+        if (motEssayéArray[i]===motArray[i]){
+          cellule[i] = "rgb(0, 255, 30)";
+          motEssayéArray[i] = null;
+          // Ajout du score pour LTP
+          score[essai - 1] = score[essai - 1] + (6 - essai) * 20;
+          document.getElementById("C" + String(essai) + (i + 1)).style.backgroundColor = cellule[i];
+          document.getElementById("C" + String(essai) + (i+1)).innerText = motEssayé[i];
         }
       }
-
-      // Affichage des couleurs
-      document.getElementById("C" + String(essai) + "1").style.backgroundColor =
-        cellule[0];
-      document.getElementById("C" + String(essai) + "2").style.backgroundColor =
-        cellule[1];
-      document.getElementById("C" + String(essai) + "3").style.backgroundColor =
-        cellule[2];
-      document.getElementById("C" + String(essai) + "4").style.backgroundColor =
-        cellule[3];
-      document.getElementById("C" + String(essai) + "5").style.backgroundColor =
-        cellule[4];
-
-      // Affichage des lettres
-      document.getElementById("C" + String(essai) + "1").innerText =
-        motEssayé[0];
-      document.getElementById("C" + String(essai) + "2").innerText =
-        motEssayé[1];
-      document.getElementById("C" + String(essai) + "3").innerText =
-        motEssayé[2];
-      document.getElementById("C" + String(essai) + "4").innerText =
-        motEssayé[3];
-      document.getElementById("C" + String(essai) + "5").innerText =
-        motEssayé[4];
+      for (let i = 0; i < motArray.length; i++) {
+        if (motEssayéArray[i]!==null && motArray.includes(motEssayéArray[i])){
+          cellule[i] = "yellow";
+          // Ajout du score pour LTP
+          score[essai - 1] = score[essai - 1] + (6 - essai) * 10;
+          document.getElementById("C" + String(essai) + (i + 1)).style.backgroundColor = cellule[i];    
+        }
+        document.getElementById("C" + String(essai) + (i + 1)).innerText =motEssayé[i];
+      }
 
       // Vider l'input
       document.getElementById("mot").value = "";
@@ -98,10 +79,8 @@ function test() {
 
     }else{ // Alerte si le mot entré n'a pas 5 lettres
         alert("Entrer un mot de 5 lettres");
-         document.getElementById("mot").value = "";
-        
-    }
-   
+         document.getElementById("mot").value = "";   
+    } 
 }
 
 // Valider avec Enter
@@ -109,6 +88,5 @@ input.addEventListener("keypress", function (event) {
   if (event.key === "Enter") {
     event.preventDefault();
     test();
-  }
-  
+  }  
 });
