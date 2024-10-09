@@ -1,96 +1,278 @@
-let motEssayé;
+let motEssayé=Array(5).fill("");
 let mot;
-let essai=0;
-let score=[0,0,0,0,0];
-let ScoreFinal=0;
+let essai = 1;
+let score = [0, 0, 0, 0, 0];
+let ScoreFinal = 0;
+let cellule = Array(5).fill("");
+let lettres = "qwertyuiopasdfghjklzxcvbnm".split("");
+let longueur=0;
+let currentRow=0;
+let currentPosition = 0;
+let btnEnvoi =document.getElementById("envoi");
+let pièces;
+let motArray;
+let dejaVue = true;
 
+const input = document.getElementById("mot");
+const body = document.querySelector("body");
+for (i = 0; i < 5; i++) {
+  motEssayé[i] = Array(5).fill("");
+  cellule[i] = Array(5).fill("");
+  for (j=0; j<5; j++){
+    cellule[i][j] = document.getElementById("C" + (i+1) + (j + 1));
+  }
+  
+}
 
 // fonction pour lire le fichier
-fetch("ListeDeMots.csv").then(response => response.text()).then(data => {
+fetch("ListeDeMots.csv")
+  .then((response) => response.text())
+  .then((data) => {
     //lire une ligne
-    const ligne = data.split("\n");
-    // enlèvement des lignes vides
-    let lignefiltré = ligne.filter(ligne => ligne.trim() !== "");
+    const ligne = data.split("\n").filter((ligne) => ligne.trim() !== "");
 
     //choix du mot aléatoire
-    const indexaleatoire = Math.floor(Math.random()*(lignefiltré.length-1))+1;
-     mot= lignefiltré[indexaleatoire].toUpperCase().trim();
-     console.log(mot);
+    const indexaleatoire = Math.floor(Math.random() * ligne.length);
+    mot = ligne[indexaleatoire].toUpperCase().trim();
+    console.log(mot);
+});
+   
+document.addEventListener("keydown", function (event) {
+  let entrée=event.key.toUpperCase();
+
+  // Enregistrement des lettres entrées
+    
+  
+    lettres.forEach((a,i) => {
+      if (entrée === a.toUpperCase()) {
+        currentPosition=motEssayé[currentRow].indexOf("");
+        if (currentPosition !== -1){
+          
+          motEssayé[currentRow][currentPosition] = entrée;
+          document.getElementById("C"+currentRow+currentPosition).textContent=entrée;
+          if (currentPosition===longueur){
+            longueur++
+          }
+        }
+        
+      } else if (entrée === "ENTER" && currentPosition===-1) {
+        // Valider avec Enter
+
+        event.preventDefault();
+        test();
+
+      } else if (entrée === "BACKSPACE" && longueur>0 ) {
+        // Suppression de la dernière entrée
+        event.preventDefault();
+        motEssayé[currentRow][longueur-1]='';
+        document.getElementById(
+          "C" + currentRow + (longueur-1)
+        ).textContent = ''
+        --longueur;
+        entrée='';
+        
+      }
+      currentPosition = motEssayé[currentRow].indexOf("");
+      if (currentPosition === -1) {
+        btnEnvoi.style.backgroundColor = "rgb(78, 239, 78)";
+      } else {
+        btnEnvoi.style.backgroundColor = "rgb(148, 209, 148)";
+      }
+      
+  })
+});
+let index;
+const boxes = document.querySelectorAll(".box");
+boxes.forEach((box) => {
+  box.addEventListener("click", () => {
+    index = box.getAttribute("id")[2];
+    if (motEssayé[currentRow][index] !== "") {
+      motEssayé[currentRow][index] = "";
+      box.textContent = "";
+      console.log(motEssayé[currentRow])
+      if (Number(index) === longueur-1) {
+        longueur--;
+        console.log(longueur)
+      }
+    }
+    currentPosition = motEssayé[currentRow].indexOf("");
+    if (currentPosition === -1) {
+    btnEnvoi.style.backgroundColor = "rgb(78, 239, 78)";
+    } else {
+      btnEnvoi.style.backgroundColor = "rgb(148, 209, 148)";
+    }
+  });
+});
+const keys = document.querySelectorAll(".key");
+keys.forEach((key) => {
+  key.addEventListener("click",() => {
+    let entrée = key.textContent.toUpperCase();
+    
+
+    // Enregistrement des lettres entrées
+
+    lettres.forEach((a, i) => {
+      if (entrée === a.toUpperCase()) {
+        currentPosition = motEssayé[currentRow].indexOf("");
+        if (currentPosition !== -1) {
+          motEssayé[currentRow][currentPosition] = entrée;
+          document.getElementById(
+            "C" + currentRow + currentPosition
+          ).textContent = entrée;
+          if (currentPosition === longueur) {
+            longueur++;
+          }
+        }
+      } else if (entrée === "ENTER" && currentPosition === -1) {
+        // Valider avec Enter
+        test();
+      } else if (entrée === "BACKSPACE" && longueur > 0) {
+        // Suppression de la dernière entrée
+
+        motEssayé[currentRow][longueur - 1] = "";
+        document.getElementById("C" + currentRow + (longueur - 1)).textContent =
+          "";
+        --longueur;
+        entrée = "";
+      }
+      currentPosition = motEssayé[currentRow].indexOf("");
+      if (currentPosition === -1) {
+        btnEnvoi.style.backgroundColor = "rgb(78, 239, 78)";
+      } else {
+        btnEnvoi.style.backgroundColor = "rgb(148, 209, 148)";
+      }
+    });
+  })
 })
-
-
-const input=document.getElementById("mot");
-
+  
 
 
 function test() {
-  motEssayé = document.getElementById("mot").value.toUpperCase();
-  let motArray=mot.split('');
-  let motEssayéArray= motEssayé.split('');
+  // motEssayé = document.getElementById("mot").value.toUpperCase();
+  currentPosition= motEssayé[currentRow].indexOf("");
+  if (currentPosition===-1){
+    // Si le mot a 5 lettres
+    motArray = mot.split("");
+    let motEssayéArray = motEssayé[currentRow].slice();
 
-    if (motEssayé.length=== 5){
-      // Si le mot a 5 lettres
-      var cellule = Array(5).fill("");
-      ++essai;
+    // Verification si chaque lettre du mot tenté est bon et ajout des couleurs
+    motArray.forEach((lettre, i) => {
+      console.log(motEssayéArray[i],"lettre: ",lettre)
+      if (motEssayéArray[i] === lettre) {
+        // si la lettre est bien placée
+        document.getElementById(motEssayéArray[i]).style.backgroundColor ="rgb(0, 255, 30)";
+        document.getElementById("C" + currentRow + i).style.backgroundColor ="rgb(0, 255, 30)";
+        // on efface les lettres du mot
+        motArray[i] = "";
+        motEssayéArray[i] = "";
+        // Ajout du score pour LTP
+        score[currentRow] += (5 - currentRow) * 20;
+      }
+    });
+    
+    motArray.forEach((lettre, i) => {
+      if (lettre !== "") {
+        if (motArray.includes(motEssayéArray[i])) {
 
-      // Verification si chaque lettre du mot tenté est bon et ajout des couleurs
+          // si la lettre n'etait pas verte
+          if (document.getElementById(motEssayé[currentRow][i]).style.backgroundColor !== "rgb(0, 255, 30)") {
+            document.getElementById(motEssayéArray[i]).style.backgroundColor ="yellow";
+          }
 
-      for (let i = 0; i < motArray.length; i++) {
-        if (motEssayéArray[i]===motArray[i]){
-          cellule[i] = "rgb(0, 255, 30)";
-          motEssayéArray[i] = null;
-          motArray[i] = null;
+          document.getElementById("C" + currentRow + i).style.backgroundColor = "yellow";
+          motArray[motArray.indexOf(motEssayéArray[i])] = "";
           
-          // Ajout du score pour LTP
-          score[essai - 1] = score[essai - 1] + (6 - essai) * 20;
-          document.getElementById("C" + String(essai) + (i + 1)).style.backgroundColor = cellule[i];
-          document.getElementById("C" + String(essai) + (i+1)).innerText = motEssayé[i];
-        }
-      }
-      for (let i = 0; i < motArray.length; i++) {
-        if (motEssayéArray[i]!==null && motArray.includes(motEssayéArray[i])){
-          cellule[i] = "yellow";
-
           // Ajout du score pour LT
-          score[essai - 1] = score[essai - 1] + (6 - essai) * 10;
-          document.getElementById("C" + String(essai) + (i + 1)).style.backgroundColor = cellule[i];    
+          score[currentRow] = score[currentRow] + (5 - currentRow) * 10;
+        } else { // si la lettre n'etait pas coloré
+          if (document.getElementById(motEssayé[currentRow][i]).style.backgroundColor === "") {
+            document.getElementById(motEssayéArray[i]).style.backgroundColor ="gray";
+          }
         }
-        document.getElementById("C" + String(essai) + (i + 1)).innerText =motEssayé[i];
       }
+    });
 
-      // Vider l'input
-      document.getElementById("mot").value = "";
-
-      // Affichage du resultat
-      if (mot === motEssayé) {
-        document.getElementById("Resultat").innerText = "Félicitations !!!";
-        document.getElementById("Resultat").style.color = "green";
-        // Ajout du score pour les essais restants
-        for (i=essai; i<5; i++){
-            score[i]=score[i-1];
-        }
-        document.getElementById("score").innerText = "Score : " + ScoreFinal;
+    // Affichage du resultat
+    if (mot === motEssayé[currentRow].join("")) {
+      document.getElementById("congratulations").classList.remove("hidden");
+      // document.getElementById("Resultat").innerText = "Félicitations !!!";
+      // document.getElementById("Resultat").style.color = "green";
+      // Ajout du score pour les essais restants
+      for (i = essai; i < 5; i++) {
+        score[i] = score[i - 1];
       }
-      if (essai === 5 && motEssayé !== mot) {
-        document.getElementById("Resultat").innerText = "Game Over !!!";
-        document.getElementById("Resultat").style.color = "red";
-        document.getElementById("motatrouver").innerText ="Le mot à trouver était : " + mot;
-      }
+      document.getElementById("score").innerText = "Score : " + ScoreFinal;
+    } else if (essai === 5) {
+      // document.getElementById("Resultat").innerText = "Game Over !!!";
+      // document.getElementById("Resultat").style.color = "red";
+      document.getElementById("gameover").classList.remove("hidden");
+      document.getElementById("motatrouver").innerText =
+        "Le mot à trouver était : " + mot;
+    }
 
-      // Affichage du score
-      ScoreFinal = score.reduce((total, current) => total + current, 0);
-      document.getElementById("score").innerText = "Score : " + ScoreFinal+" points";
+    // Affichage du score
+    ScoreFinal = score.reduce((total, current) => total + current, 0);
+    document.getElementById("score").innerText =
+      "Score : " + ScoreFinal + " points";
 
-    }else{ // Alerte si le mot entré n'a pas 5 lettres
-        alert("Entrer un mot de 5 lettres");
-         document.getElementById("mot").value = "";   
-    } 
+    essai++;
+    if (currentRow<4){
+      currentRow++;
+    }
+    btnEnvoi.style.backgroundColor = "rgb(148, 209, 148)";
+
+    // Remuneration
+    pièces = ScoreFinal / 10;
+  }   
+}
+function devoiler(){
+  //choix de la lettre à devoiler aléatoirement
+  
+  
+  k=0;
+  // si la lettre n'a pas déjà été trouvé par l'utilisateur 
+  // ou s'il n'a pas assez de pièces ou si le jeu n'est pas terminé 
+  while (dejaVue===true && pièces>=50 && currentRow<5 && k<5){
+    const id = Math.floor(Math.random() * 4);
+    l=document.getElementById(mot[id]);
+    console.log(l.style.backgroundColor, mot[id]);
+    if (l.style.backgroundColor !== "rgb(0, 255, 30)") {
+      dejaVue = false;
+      cell=document.getElementById("C" + currentRow + id)
+      cell.textContent =l.textContent;
+      cell.backgroundColor = "rgb(0, 255, 30)";
+      l.style.background = "rgb(0, 255, 30)";
+      pièces-=50;
+    }
+    console.log(dejaVue,pièces,currentRow)
+    k++
+  }
 }
 
-// Valider avec Enter
-input.addEventListener("keypress", function (event) {
-  if (event.key === "Enter") {
-    event.preventDefault();
-    test();
-  }  
-});
+function supprimer(){
+  let lettreàEffacer=mot[0];
+  nb=0;
+  k=0;
+  while (mot.includes(lettreàEffacer) && nb<5 && k<26){
+    const id = Math.floor(Math.random() * 25);
+    lettreàEffacer=lettres[id].toUpperCase();
+    console.log(lettreàEffacer);
+    if (!mot.includes(lettreàEffacer)){
+      l = document.getElementById(lettreàEffacer);
+    }
+    console.log(mot.includes(lettreàEffacer),nb,l);
+    k++
+  } 
+}
+function showCongratulations() {
+  document.getElementById('congratulations').classList.remove('hidden');
+}
+
+function showGameOver() {
+  document.getElementById('gameover').classList.remove('hidden');
+}
+
+function playSound() {
+  var sound = document.getElementById('clickSound') ;
+  sound.play() ;
+}
