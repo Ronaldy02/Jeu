@@ -1,15 +1,39 @@
 body{
-    width: 100%;
+    width: 100vw;
+    height: 100vh;
     display :flex ;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-image: url('depositphotos_83932946-stock-photo-natural-wood-pattern.jpg');
+    background-image: url('media/depositphotos_83932946-stock-photo-natural-wood-pattern.jpg');
     /* background-image: url('90594545-mission-word-cloud-collage-business-concept-background.jpg'); */
     background-size: cover;
     opacity: 1;
+    margin:0 0;
 }
 #header{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin: 0 10px ;
+    padding: 0 20px;
+}
+#score, #balance{
+    border: 2px solid burlywood;
+    background-color: rgb(227, 194, 150);
+    border-radius: 10px;
+    width: 150px;
+    display: flex;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+}
+#imgpiece {
+    display: flex;
+    width: 20px;
+    height: 18px;
+}
+#titre{
     width:100%;
     margin: 5%;
     text-align: center;
@@ -31,8 +55,9 @@ body{
     padding: 5px;
     margin: 5px;
 }
-#header1 {
+#titre1 {
     display: none;
+    color: white;
 }
 
 .box{
@@ -52,46 +77,105 @@ body{
 #input{
     margin-top: 20px;
 }
-#ligne4 button{
-    background-color: rgb(78, 239, 78);
-    border: 2px solid black;
-    padding: 3px;
-    border-radius: 5px;
-    width:40px;
-    color: white;
-    font-family: 'Times New Roman', Times, serif;
-    font-weight: bold;
-    
-}
-#ligne4 #envoi{
 
-    /* color :blue; */
-    background-color:rgb(148, 209, 148) ;
-    width:70px;
-
+#clavier {
+    display: none;
+    margin-top: 70px;
+    align-items: center;
 }
-.key{
-    background-color:unset;
+.key {
+    background-color: unset;
     width: 23px;
     height: 30px;
     padding: 3px;
 }
-#clavier{
-    display:none;
-    margin-top: 70px;
+.boutons{
+    display: flex;
+    height: 40px;
     align-items: center;
-    font-family: 'Times New Roman', Times, serif;
-    font: bold;
+    width: 180px;
+    justify-content: space-around;
+    margin: 2px;
 }
+.boutons button{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    color: white;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+    height: 40px;
+    Border: none;
+    Border-radius: 5px;
+    
+}
+.boutons #envoi {
+
+    /* color :blue; */
+    background-color: rgb(148, 209, 148);
+    width: 70px;
+    box-shadow: 0 1.5px rgb(95, 138, 95);
+
+}
+.bonus{
+    background-color: rgb(78, 239, 78);
+    padding: 3px;
+    width:50px;
+    box-shadow: 0 1.5px rgb(56, 179, 56);
+    font-size: 10px;
+    justify-self: right;
+    text-align: center;
+}
+
+.price {
+    display: flex;
+    justify-content: space-around;
+    width: 30px;
+    height: 10px;
+    align-items: center;
+    background-color: rgb(68, 255, 68);;
+    border-radius: 4px;
+    box-shadow: 0 -1px rgb(23, 74, 23);;
+}
+
+#pieces {
+    display: flex;
+    width: 9px;
+    height: 10px;
+}
+
+#poubelle {
+    display: flex;
+    width: 18px;
+    height: 20px;
+    justify-content: center;
+}
+
+.fonction {
+    display: flex;
+    justify-content: center;
+}
+
 
 .hidden {
     Display: none;
 }
-
+#bonus{
+    float:right;
+}
+#ombre {
+    position: absolute;
+    background-color: #f0f0f0;
+    opacity: 80%;
+    width: 100vw;
+    height: 100vh;
+}
 #congratulations,
 #gameover {
+    position: absolute;
     Text-align: center;
-    Font-size: 3em;
+    Font-size: 30px;
     Padding: 20px;
     Border-radius: 10px;
     Margin: 20px;
@@ -99,7 +183,7 @@ body{
 
 #congratulations {
     background-color: unset;
-    color: lightgreen;
+    color: rgb(21, 239, 21);
 
     Animation: fadeIn 0.5s forwards;
 }
@@ -169,33 +253,33 @@ body{
     }
 }
 
-Button {
+
+/* Button {
     Padding: 10px 20px;
     Font-size: 1.2em;
     Cursor: pointer;
     Background-color: #007bff;
     Color: white;
-    Border: none;
-    Border-radius: 5px;
+    
     Margin: 10px;
     Transition: background-color 0.3s ease;
 }
 
 Button:hover {
     Background-color: #0056b3;
-}
+} */
 
-@media all and (max-width: 500px) {
+@media all and (max-width: 770px) {
     .box {
         width: 25px;
         height: 25px;
     }
 
-    #header {
+    #titre {
         display: none
     }
 
-    #header1 {
+    #titre1 {
         display: block;
     }
     #container{
@@ -204,5 +288,11 @@ Button:hover {
     #clavier {
         display: flex;
         flex-direction: column;
+    }
+    #grand{
+        display: none;
+    }
+    #congratulations,#gameover{
+        font-size: 20px;
     }
 }

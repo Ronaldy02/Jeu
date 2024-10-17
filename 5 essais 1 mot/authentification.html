@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentification</title>
+</head>
+<body>
+    <style>
+        body{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #container{
+            display :flex ;
+            background-color: blue;
+            align-items: center;
+            justify-content: space-evenly;
+            box-shadow: 2px 2px black;
+            width: 200px;
+            height: 200px;
+        }
+    </style>
+    <div id="container">
+        <input id="input" type="text" placeholder="Entrer votre nom">
+        <button type="submit" onclick="setUserName()" >Connexion</button>
+        <div id="connexion"></div>
+    </div>
+    <script>
+        let myName;
+        let nom;
+        let box=document.getElementById("container");
+        let connexion=document.getElementById('connexion')
+        
+        if (!localStorage.getItem("nom")){
+            
+        } else{
+            localStorage.setItem("\nnom",myName);
+            box.textContent="Salut, "+myName+" !!!\n Bon Retour";
+        }
+
+        function setUserName(){
+            myInput = document.querySelector("#input");
+            myName= myInput.textContent;
+            myInput.style.display='none'
+            connexion.textContent = "Salut, " + myName + " !!!\n Bon Retour";
+        }
+        
+    </script>
+</body>
+</html>
