@@ -2,6 +2,7 @@ body{
     width: 100vw;
     height: 100vh;
     display :flex ;
+    flex-wrap: wrap;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -89,6 +90,7 @@ body{
     height: 30px;
     padding: 3px;
 }
+
 .boutons{
     display: flex;
     height: 40px;
@@ -118,6 +120,18 @@ body{
     box-shadow: 0 1.5px rgb(95, 138, 95);
 
 }
+#grand{
+    margin-top: auto auto;
+    float: right;
+    margin-left: auto;
+    flex-direction: column;
+
+}
+#grand .bonus{
+    width: 100px;
+    height: 60px;
+    float: right;
+}
 .bonus{
     background-color: rgb(78, 239, 78);
     padding: 0px;
@@ -134,9 +148,9 @@ body{
     width: 30px;
     height: 10px;
     align-items: center;
-    background-color: rgb(68, 255, 68);;
+    background-color: rgb(68, 255, 68);
     border-radius: 4px;
-    box-shadow: 0 -1px rgb(23, 74, 23);;
+    box-shadow: 0 -1px rgb(23, 74, 23);
 }
 
 #pieces {
@@ -298,4 +312,9 @@ Button:hover {
     #congratulations,#gameover{
         font-size: 20px;
     }
+    #score,
+    #balance {
+        width: 100px;
+    }
+
 }

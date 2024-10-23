@@ -22,10 +22,13 @@ div{
 }
 #Attaquant{
     background-color: green;
+    float: right;
 }
 #Milieu {
+    margin:auto;
     background-color: blue;
 }
 #Defenseur {
+    float: left;
     background-color: red;
 }

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5 Essais 1 Mot</title>
+</head>
+<style>
+    body{
+        height: 100vh;
+    }
+    #corps{
+        margin: 0 auto;
+        width: 768px;
+        height: 100%;
+        border:5px solid bisque;
+        border-radius: 5px;
+        background-image: url('media/depositphotos_83932946-stock-photo-natural-wood-pattern.jpg');
+    }
+    #header{
+        display: flex;
+        text-align: center;
+        justify-content: space-between;
+        font-size: large;
+        background-color: bisque;
+        box-shadow: 0px 2px rgb(194, 173, 148) ;
+    }
+    #score,#balance{
+        margin: 0 20px;
+        display: flex;
+        align-items: center;
+        background-color: burlywood;
+        padding: 2px;
+        min-width: 70px;
+        width: fit-content;
+        padding: 2px 5px;
+        border: 2px solid beige;
+        border-radius: 10px;
+        color: white;
+    }
+    #imgpiece{
+        margin: 0 5px;
+        width: 19px;
+        height: 21px;
+        justify-content: space-between;
+    }
+    #title{
+        max-width: max-content;
+        margin: 30px auto;
+        text-align: center;
+    }
+    #gameContainer{
+        display: flex;
+        width:100vw;
+        justify-content: space-around;
+        align-items: center;
+        margin:20px;
+        justify-self:center;
+    }
+    #lettreContainer{
+        display: flex;
+        flex-direction: column;
+        background-color: gray;
+        border: 2px solid black;
+        width: 70px;
+        height: 200px;
+        color: white;
+        align-items: center;
+    }
+    #lettreContainer div{
+        display: flex;
+        width: 63px;
+        height: 25px;
+        align-items: center;
+        justify-content: center;
+        color: black;
+        margin: 2px;
+        border: 2px solid black;
+    }
+    #lettreContainer #line{
+        color: white;
+        border:0;
+        justify-content: space-around;
+        align-items: center;
+    }
+    #container{
+        max-width: fit-content;
+        max-height: fit-content;
+    }
+    #container .ligne{ 
+        width: fit-content;
+        margin: 10px;
+        justify-content: space-around;
+        display: flex;
+
+    }
+    .box{
+        width:40px;
+        height: 40px;
+        margin: 10px;
+        font-size: x-large;
+        font-weight: bold;
+        background-color: gray;
+        border: 3px solid black;
+        color: white;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+    }
+    #bonusContainer{
+        width: 80px;
+        height: 200px;
+
+    }
+    #envoi{
+        display: none;
+    }
+    .bonus{
+        background-color: rgb(78, 239, 78);
+        padding: 0px;
+        width:70px;
+        height: 70px;
+        margin: 20px 5px;
+        box-shadow: 0 3px rgb(96, 177, 96);
+        border-radius: 35px;
+        font-size: 10px;
+        text-align: center;
+        align-items: center;
+        color: white;
+        font-weight: bold;
+    }
+    .fonction{
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        height: 45px;
+        font-size: 15px;
+        align-items: center;
+    }
+    #poubelle{
+        width: 60px;
+        height: 45px;
+    }
+    .price{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgb(68, 255, 68);
+        border-radius: 4px;
+        box-shadow: 0 -1px rgb(23, 74, 23);
+        width: fit-content;
+        margin: auto;
+        padding: 0 3px;
+        height: 15px;
+        border: 1px solid rgb(136, 195, 131);
+        
+    }
+    #pieces{
+        width: 11px;
+        margin: 5px;
+    }
+    @media all and (max-width: 500px){
+        body{
+            width: 100vw;
+        }
+        #lettreContainer{
+            display: none;
+        }
+        #corps{
+            width: 100vw;
+            border: 0;
+            
+        }
+        #gameContainer{
+            flex-direction: column;
+            width:100vw;
+        }
+        .box{
+            width:25px;
+            height: 25px;
+        }
+    }
+</style>
+<body>
+    <div id="corps">
+        <div id="header">
+            <div id="score">Score : 0</div>
+            <div id="balance"><img src="media/pieces.png" id="imgpiece" alt=""><div id="nbpiece">0</div></div>
+        </div>
+        <div id="title"><h2>5 ESSAIS 1 MOT</h2></div>
+        <div id="gameContainer">
+            <div id="lettreContainer">
+                <div id="titre"><h6>Wrong letter</h6></div>
+                <div id="line"><p>A</p><p>A</p><p>A</p></div>
+            </div>
+            <div id="container">
+                    <div id="0" class="ligne">
+                        <div class="box" id="C00"></div>
+                        <div class="box" id="C01"></div>
+                        <div class="box" id="C02"></div>
+                        <div class="box" id="C03"></div>
+                        <div class="box" id="C04"></div>
+                    </div>
+                    <div id="1" class="ligne">
+                        <div class="box" id="C10"></div>
+                        <div class="box" id="C11"></div>
+                        <div class="box" id="C12"></div>
+                        <div class="box" id="C13"></div>
+                        <div class="box" id="C14"></div>
+                    </div>
+                    <div id="2" class="ligne">
+                        <div class="box" id="C20"></div>
+                        <div class="box" id="C21"></div>
+                        <div class="box" id="C22"></div>
+                        <div class="box" id="C23"></div>
+                        <div class="box" id="C24"></div>
+                    </div>
+                    
+                    <div id="3" class="ligne">
+                        <div class="box" id="C30"></div>
+                        <div class="box" id="C31"></div>
+                        <div class="box" id="C32"></div>
+                        <div class="box" id="C33"></div>
+                        <div class="box" id="C34"></div>
+                    </div>
+                    <div id="4" class="ligne">
+                        <div class="box" id="C40"></div>
+                        <div class="box" id="C41"></div>
+                        <div class="box" id="C42"></div>
+                        <div class="box" id="C43"></div>
+                        <div class="box" id="C44"></div>
+                    </div>
+            </div>
+            <div id="bonusContainer">
+                <div class="bonus" onclick="devoiler()">
+                    <div class="fonction" >A+</div>
+                    <div class="price">50<img id="pieces" src="media/pieces.png" alt=""></div>
+                </div>
+                <button onclick="test()" id="envoi">Envoyer</button>
+                <div class="bonus" onclick="supprimer()">
+                    <div class="fonction"><img id="poubelle" src="media/poubelle.png" alt=""></div>
+                    <div class="price">50<img id="pieces" src="media/pieces.png" alt=""></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Son pour les clics sur les boutons -->
+    <audio id="clickSound" src="media/MouseClick.mp3" preload="auto"></audio>
+    
+    
+    
+    <script src="index.js"></script>
+</body>
+</html>
+
+
+é

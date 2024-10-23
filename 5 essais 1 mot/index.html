@@ -8,8 +8,8 @@
 </head>
 <body>
     <nav id="header">
-        <div id="score">Score : 1500</div>
-        <div id="balance"><img src="media/pieces.png" id="imgpiece" alt=""><div id="nbpiece">15</div></div>
+        <div id="score">Score : 0</div>
+        <div id="balance"><img src="media/pieces.png" id="imgpiece" alt=""><div id="nbpiece">0</div></div>
     </nav>
     <nav id="titre"><h1>5 Essais 1 Mot</h1></nav>
     <nav id="titre1">
@@ -90,22 +90,14 @@
                         <button class="key" id="N">N</button>
                         <button class="key" id="-">-</button>
                     </div>
+
                     <div class="boutons">
                         <button class="bonus" onclick="devoiler()" aria-placeholder="bonjour"><div class="fonction">A+</div><div class="price">50<img id="pieces" src="media/pieces.png" alt=""></div></button>
                         <button onclick="test()" id="envoi">Envoyer</button>
                         <button class="bonus" onclick="supprimer()" ><div class="fonction"><img id="poubelle" src="media/poubelle.png" alt=""></div><div class="price">50<img id="pieces" src="media/pieces.png" alt=""></div></button>
                     </div>
                 </div>
-                <div class="boutons" id="grand">
-                    <button id="devoiler" class="bonus" onclick="devoiler()" aria-placeholder="bonjour">
-                        <div class="fonction">A+</div>
-                        <div class="price">50<img id="pieces" src="media/pieces.png" alt=""></div>
-                    </button>
-                    <button onclick="supprimer()" class="bonus">
-                        <div class="fonction"><img id="poubelle" src="media/poubelle.png" alt=""></div>
-                        <div class="price">50<img id="pieces" src="media/pieces.png" alt=""></div>
-                    </button>
-                </div>
+                
                 <div class="envoi"></div>
 
                 <!-- <input type="text" minlength="5" maxlength="5" placeholder="Entrez un mot de 5 lettres" id="mot" class="input"> -->
@@ -115,7 +107,16 @@
             
         </div>
     </div>
-
+    <div class="boutons" id="grand">
+        <button id="devoiler" class="bonus" onclick="devoiler()" aria-placeholder="bonjour">
+            <div class="fonction">A+</div>
+            <div class="price">50<img id="pieces" src="media/pieces.png" alt=""></div>
+        </button>
+        <button onclick="supprimer()" class="bonus">
+            <div class="fonction"><img id="poubelle" src="media/poubelle.png" alt=""></div>
+            <div class="price">50<img id="pieces" src="media/pieces.png" alt=""></div>
+        </button>
+    </div>
     <div id="ombre" class="hidden"></div>
     <div id="congratulations" class="hidden">
         <h1>Félicitations !!!</h1>
