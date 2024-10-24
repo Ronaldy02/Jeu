@@ -1,16 +1,57 @@
+
+
 // Si ce n'est pas un recommencement
 
-let username = localStorage.getItem("username");
-window.open("auth.html");
-let userdata = JSON.parse(localStorage.getItem(username));
-// Variable à conserver dans le navigateur
+let username = localStorage.getItem("username") || "Aucun";
+let userdata;
+let scoreTotal;
+let partieTerminée;
+let partieRéussie;
+let balance;
+
+if (username === "Aucun") {
+  username = prompt("Entrez votre nom d'utilisateur");
+  localStorage.setItem("username", username);
+  localStorage.setItem(
+    username,
+    JSON.stringify({
+      scoreTotal: 0,
+      partieRéussie: 0,
+      partieTerminée: 0,
+      balance: 100
+    })
+  );
+  userdata = JSON.parse(localStorage.getItem(username));
+} else {
+  rep = prompt(
+    "Bonjour " + username + ", C'est bien toi ? (OUI/NON)"
+  ).toUpperCase();
+  if (rep === "NON") {
+    username = prompt("Entrez votre nom d'utilisateur");
+    localStorage.setItem("username", username);
+    userdata =
+      JSON.parse(localStorage.getItem(username)) ||
+      localStorage.setItem(
+        username,
+        JSON.stringify({
+          scoreTotal: 0,
+          partieRéussie: 0,
+          partieTerminée: 0,
+          balance: 100,
+        })
+      );
+    userdata = JSON.parse(localStorage.getItem(username));
+  } else if (rep === "OUI") {
+    // Variable à conserver dans le navigateur
+    userdata = JSON.parse(localStorage.getItem(username));
+  }
+}
 scoreTotal = parseInt(userdata["scoreTotal"]);
 partieTerminée = parseInt(userdata["partieTerminée"]);
 partieRéussie = parseInt(userdata["partieRéussie"]);
 balance = parseInt(userdata["balance"]);
 
 start();
-
 function start() {
   let motEssayé = Array(5).fill("");
   let mot;
@@ -298,7 +339,7 @@ function start() {
       console.log(pièces);
       pièces = Math.round(ScoreFinal / 100);
       dBalance.innerText = balance + pièces;
-      dScore.innerText = ScoreFinal;
+      dScore.innerText = "Score : "+ScoreFinal;
 
       // Affichage du resultat
       if (mot === motEssayé[currentRow].join("")) {

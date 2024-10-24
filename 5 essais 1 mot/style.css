@@ -13,23 +13,31 @@ body{
     margin: 0 0;
     padding: 0 0;
 }
+
 #header{
     display: flex;
     max-width: 100%;
     width: 100%;
     justify-content: space-between;
-    padding: 0 5%;
+    padding: 0 1%;
     box-sizing: border-box;
+    color: black;
+    font-weight: bold;
+    align-items: center;
+    text-wrap: nowrap;
 }
 #score, #balance{
     border: 2px solid burlywood;
     background-color: rgb(227, 194, 150);
     border-radius: 10px;
-    width: 150px;
+    min-width: 150px;
+    width: fit-content;
     display: flex;
     justify-content: center;
-    color: black;
-    font-weight: bold;
+}
+#partie{
+    width: 90px;
+    text-align: center;
 }
 #imgpiece {
     display: flex;
@@ -102,7 +110,7 @@ body{
     font-weight: bold;
     font-size: medium;
     color: black;
-    border: 1px solid black;
+    border: 1.5px solid black;
 }
 
 .boutons{
@@ -329,7 +337,10 @@ Button:hover {
     }
     #score,
     #balance {
-        width: 100px;
+        min-width: 90px;
+        width:fit-content;
+        padding: 0 5px;
+        margin: 0;
     }
 
 }

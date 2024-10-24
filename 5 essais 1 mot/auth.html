@@ -1,19 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>5 Essais 1 Mot</title>
 </head>
+
 <body>
-    
+
     <nav id="header">
         <div id="score">Score : 0</div>
         <div id="partie">Partie 1/1</div>
-        <div id="balance"><img src="media/pieces.png" id="imgpiece" alt=""><div id="nbpiece">0</div></div>
+        <div id="balance"><img src="media/pieces.png" id="imgpiece" alt="">
+            <div id="nbpiece">0</div>
+        </div>
     </nav>
-    <nav id="titre"><h1>5 Essais 1 Mot</h1></nav>
+    <nav id="titre">
+        <h1>5 Essais 1 Mot</h1>
+    </nav>
     <nav id="titre1">
         <h1>5 Essais 1 Mot</h1>
     </nav>
@@ -60,16 +66,16 @@
             <h2 id="Resultat">
                 <div id="clavier">
                     <div id="ligne1" class="line">
-                        <button id="A" class="key" >A</button>
+                        <button id="A" class="key">A</button>
                         <button class="key" id="Z">Z</button>
-                        <button class="key" id="E" >E</button>
+                        <button class="key" id="E">E</button>
                         <button class="key" id="R">R</button>
                         <button class="key" id="T">T</button>
                         <button class="key" id="Y">Y</button>
                         <button class="key" id="U">U</button>
                         <button class="key" id="I">I</button>
                         <button class="key" id="O">O</button>
-                        <button class="key" id="P" >P</button>
+                        <button class="key" id="P">P</button>
                     </div>
                     <div id="ligne2" class="line">
                         <button class="key" id="Q">Q</button>
@@ -94,19 +100,25 @@
                     </div>
 
                     <div class="boutons">
-                        <button class="bonus" onclick="devoiler()" aria-placeholder="bonjour"><div class="fonction">A+</div><div class="price">50<img id="pieces" src="media/pieces.png" alt=""></div></button>
+                        <button class="bonus" onclick="devoiler()" aria-placeholder="bonjour">
+                            <div class="fonction">A+</div>
+                            <div class="price">50<img id="pieces" src="media/pieces.png" alt=""></div>
+                        </button>
                         <button onclick="test()" id="envoi">Envoyer</button>
-                        <button class="bonus" onclick="supprimer()" ><div class="fonction"><img id="poubelle" src="media/poubelle.png" alt=""></div><div class="price">50<img id="pieces" src="media/pieces.png" alt=""></div></button>
+                        <button class="bonus" onclick="supprimer()">
+                            <div class="fonction"><img id="poubelle" src="media/poubelle.png" alt=""></div>
+                            <div class="price">50<img id="pieces" src="media/pieces.png" alt=""></div>
+                        </button>
                     </div>
                 </div>
-                
+
                 <div class="envoi"></div>
 
                 <!-- <input type="text" minlength="5" maxlength="5" placeholder="Entrez un mot de 5 lettres" id="mot" class="input"> -->
-                
+
             </h2>
             <h4 id="motatrouver"></h4>
-            
+
         </div>
     </div>
     <div class="boutons" id="grand">
@@ -114,7 +126,7 @@
             <div class="fonction">A+</div>
             <div class="price">50<img id="pieces" src="media/pieces.png" alt=""></div>
         </button>
-        <button onclick="supprimer()" class="bonus" >
+        <button onclick="supprimer()" class="bonus">
             <div class="fonction"><img id="poubelle" src="media/poubelle.png" alt=""></div>
             <div class="price">50<img id="pieces" src="media/pieces.png" alt=""></div>
         </button>
@@ -130,19 +142,20 @@
         </button>
         <button onclick="fin()">NON</button>
     </div>
-    
+
     <div id="gameover" class="hidden">
         <h1>Game Over</h1>
     </div>
-    
+
     <!-- <button onclick="playSound(); showCongratulations()">Afficher Félicitations</button>
     <button onclick="playSound(); showGameOver()">Afficher Game Over</button> -->
-    
+
     <!--Son pour les clics sur les boutons -->
     <audio id="clickSound" src="media/MouseClick.mp3" preload="auto"></audio>
 
 
 
-    <script src="index.js"></script>
+    <script src="auth.js"></script>
 </body>
+
 </html>
