@@ -117,12 +117,12 @@
                 <!-- <input type="text" minlength="5" maxlength="5" placeholder="Entrez un mot de 5 lettres" id="mot" class="input"> -->
 
             </h2>
-            <h4 id="motatrouver"></h4>
+
 
         </div>
     </div>
     <div class="boutons" id="grand">
-        <button id="devoiler" class="bonus" onclick="devoiler()" aria-placeholder="bonjour">
+        <button id="devoiler" class="bonus" onclick="start().devoiler()" aria-placeholder="bonjour">
             <div class="fonction">A+</div>
             <div class="price">50<img id="pieces" src="media/pieces.png" alt=""></div>
         </button>
@@ -131,28 +131,34 @@
             <div class="price">50<img id="pieces" src="media/pieces.png" alt=""></div>
         </button>
     </div>
-    <div id="ombre" class="hidden"></div>
-    <div id="congratulations" class="hidden">
+    <div id="ombre"></div>
+    <div id="congratulations">
         <h2>Félicitations !!!</h2>
-        <h2>Voulez-vous recommencer</h2>
-        <button onclick="restart()">
+        <h2>Voulez-vous recommencer ?</h2>
+        <div id="validButton">
+            <button onclick="restart()" style="background-color: rgb(21, 239, 21);">
 
-            <a href="index.html">OUI</a>
+                <a href="index.html">OUI</a>
 
-        </button>
-        <button onclick="fin()">NON</button>
+            </button>
+            <button onclick="fin()">NON</button>
+        </div>
+
     </div>
 
-    <div id="gameover" class="hidden">
-        <h1>Game Over</h1>
-        <h2>Félicitations !!!</h2>
-        <h2>Voulez-vous recommencer</h2>
-        <button onclick="restart()">
-        
-            <a href="index.html">OUI</a>
-        
-        </button>
-        <button onclick="fin()">NON</button>
+    <div id="gameover">
+        <h2 style="color: red;">Game Over !!!</h2>
+        <h4 id="motatrouver"></h4>
+        <br>
+        <h3>Voulez-vous recommencer ?</h3>
+        <div id="validButton">
+            <button onclick="restart()" style="background-color: red;">
+
+                <a href="index.html">OUI</a>
+
+            </button>
+            <button onclick="fin()">NON</button>
+        </div>
     </div>
 
     <!-- <button onclick="playSound(); showCongratulations()">Afficher Félicitations</button>
