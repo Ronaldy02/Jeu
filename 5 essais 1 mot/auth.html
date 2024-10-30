@@ -104,7 +104,7 @@
                             <div class="fonction">A+</div>
                             <div class="price">50<img id="pieces" src="media/pieces.png" alt=""></div>
                         </button>
-                        <button onclick="test()" id="envoi">Envoyer</button>
+                        <button class="key" id="envoi">Envoyer</button>
                         <button class="bonus" onclick="supprimer()">
                             <div class="fonction"><img id="poubelle" src="media/poubelle.png" alt=""></div>
                             <div class="price">50<img id="pieces" src="media/pieces.png" alt=""></div>
@@ -137,7 +137,7 @@
         <h2>Voulez-vous recommencer</h2>
         <button onclick="restart()">
 
-            <a href="auth.html">OUI</a>
+            <a href="index.html">OUI</a>
 
         </button>
         <button onclick="fin()">NON</button>
@@ -145,6 +145,14 @@
 
     <div id="gameover" class="hidden">
         <h1>Game Over</h1>
+        <h2>Félicitations !!!</h2>
+        <h2>Voulez-vous recommencer</h2>
+        <button onclick="restart()">
+        
+            <a href="index.html">OUI</a>
+        
+        </button>
+        <button onclick="fin()">NON</button>
     </div>
 
     <!-- <button onclick="playSound(); showCongratulations()">Afficher Félicitations</button>

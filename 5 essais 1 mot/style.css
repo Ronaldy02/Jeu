@@ -110,7 +110,7 @@ body{
     font-weight: bold;
     font-size: medium;
     color: black;
-    border: 1.5px solid black;
+    border: 1px solid black;
 }
 
 .boutons{
@@ -197,41 +197,53 @@ body{
 }
 
 
-.hidden {
-    Display: none;
-}
+
 #bonus{
     float:right;
 }
-/* #ombre {
+#ombre {
+    display: none;
     position: absolute;
-    background-color: #f0f0f0;
+    background-color: black;
     opacity: 80%;
     width: 100vw;
     height: 100vh;
-} */
+}
 #congratulations,
 #gameover {
+    flex-direction: column;
     position: absolute;
-    Text-align: center;
-    Font-size: 30px;
-    Padding: 20px;
-    Border-radius: 10px;
-    Margin: 20px;
+    text-align: center;
+    font-size: 30px;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px;
+    display: none;
+}
+#congratulations button,
+#gameover button{
+    width: 35%;
+    border: 2px solid gray;
+    color: gray;
+    font-weight: bold;
+    border-radius: 5px;
 }
 
 #congratulations {
-    background-color: unset;
+    
     color: rgb(21, 239, 21);
-
     Animation: fadeIn 0.5s forwards;
 }
-
+a{
+    text-decoration: none;
+    color: inherit;
+}
 #gameover {
-    color: red;
-    Background-color: unset;
-    Color: white;
-    Animation: shake 1s infinite;
+    
+    color: white;
+    /* Animation: shake 1s infinite; */
+    Animation: fadeIn 0.5s forwards;
+    
 }
 
 @keyframes fadeIn {

@@ -1,7 +1,10 @@
 // Si ce n'est pas un recommencement
 
 let username = localStorage.getItem("username");
-window.open("auth.html");
+let session = sessionStorage.getItem('session');
+if (session===null){
+   window.location.href="auth.html";
+}
 let userdata = JSON.parse(localStorage.getItem(username));
 // Variable à conserver dans le navigateur
 scoreTotal = parseInt(userdata["scoreTotal"]);
@@ -9,9 +12,9 @@ partieTerminée = parseInt(userdata["partieTerminée"]);
 partieRéussie = parseInt(userdata["partieRéussie"]);
 balance = parseInt(userdata["balance"]);
 
-start();
 
-function start() {
+
+
   let motEssayé = Array(5).fill("");
   let mot;
   let essai = 1;
@@ -23,7 +26,6 @@ function start() {
   let currentRow = 0;
   let currentPosition = 0;
   let btnEnvoi = document.getElementById("envoi");
-  let pièces = 0;
   let motArray;
   let dejaVue = true;
   let indexbonus;
@@ -31,7 +33,7 @@ function start() {
 
   // Affichage initial
   const dScore = document.getElementById("score");
-  dScore.innerText = "Score : " + ScoreFinal;
+  dScore.innerText = username + " : " + ScoreFinal;
   const dPartie = document.getElementById("partie");
   dPartie.innerText = "Partie " + partieRéussie + "/" + partieTerminée;
   const dBalance = document.getElementById("nbpiece");
@@ -116,6 +118,7 @@ function start() {
         motEssayé[currentRow][longueur - 1] = "";
         document.getElementById("C" + currentRow + (longueur - 1)).textContent =
           "";
+        // gestion de la couleur des casiers s'il sont des bonus
         if (indexbonus === longueur - 1) {
           cel = document.getElementById("C" + currentRow + (longueur - 1));
           cel.style.backgroundColor = "rgb(142, 243, 142)";
@@ -156,13 +159,13 @@ function start() {
       }
     });
   });
+
+  // Enregistrement des lettres entrées au clavier virtuel
   const keys = document.querySelectorAll(".key");
   keys.forEach((key) => {
     key.addEventListener("click", () => {
       let entrée = key.textContent.toUpperCase();
 
-      // Enregistrement des lettres entrées clavier virtuel
-      // Enregistrement des lettres entrées par ordinateur
       currentPosition = motEssayé[currentRow].indexOf("");
       if (lastPosition + 2 === currentPosition) {
         currentPosition = lastPosition + 1;
@@ -203,9 +206,8 @@ function start() {
           } else {
             btnEnvoi.style.backgroundColor = "rgb(148, 209, 148)";
           }
-        } else if (entrée === "Envoyer" && currentPosition === -1) {
+        } else if (entrée === "ENVOYER" && currentPosition === -1) {
           // Valider avec Enter
-
           test();
         } else if (entrée === "-" && longueur > 0) {
           // Suppression de la dernière entrée
@@ -228,7 +230,8 @@ function start() {
           } else {
             btnEnvoi.style.backgroundColor = "rgb(148, 209, 148)";
           }
-        }
+        } 
+        // else if entrée
       });
       playSound();
     });
@@ -243,9 +246,10 @@ function start() {
 
       // Verification si chaque lettre du mot tenté est bon et ajout des couleurs
       motArray.forEach((lettre, i) => {
-        console.log(motEssayéArray[i], "lettre: ", lettre);
         if (motEssayéArray[i] === lettre) {
+          console.log("Essai: " + motEssayéArray[i], "lettre: ", lettre);
           // si la lettre est bien placée
+          console.log(motEssayéArray[i] + " est bien placée");
           document.getElementById(motEssayéArray[i]).style.backgroundColor =
             "rgb(0, 255, 30)";
           document.getElementById("C" + currentRow + i).style.backgroundColor =
@@ -259,26 +263,31 @@ function start() {
       });
 
       motArray.forEach((lettre, i) => {
-        if (lettre !== "") {
+        console.log("Essai: " + motEssayéArray[i], "lettre: ", lettre);
+        if (motEssayéArray[i] !== "") {
           if (motArray.includes(motEssayéArray[i])) {
-            // si la lettre n'etait pas verte
+            console.log(motEssayéArray[i] + " mal placée");
+            // si la lettre est dans le mot mais pas verte dans le clavier
+            // Pour conserver la priorité de couleur des lettres dans le clavier (vert-jaune-gris)
             if (
               document.getElementById(motEssayé[currentRow][i]).style
                 .backgroundColor !== "rgb(0, 255, 30)"
             ) {
               document.getElementById(motEssayéArray[i]).style.backgroundColor =
-                "yellow";
+                "yellow"; // Changer la couleur de la lettre dans le clavier
             }
 
             document.getElementById(
               "C" + currentRow + i
-            ).style.backgroundColor = "yellow";
+            ).style.backgroundColor = "yellow"; // Changer la couleur de la cellule de la lettre
             motArray[motArray.indexOf(motEssayéArray[i])] = "";
 
             // Ajout du score pour LT
             score[currentRow] = score[currentRow] + (5 - currentRow) * 10;
           } else {
-            // si la lettre n'etait pas coloré
+            //si la lettre n'est pas dans le mot
+            console.log(motEssayéArray[i] + " n'est pas dans le mot");
+            // si la lettre n'etait pas coloré dans le clavier
             if (
               document.getElementById(motEssayé[currentRow][i]).style
                 .backgroundColor === ""
@@ -295,28 +304,29 @@ function start() {
       dScore.innerText = "Score : " + ScoreFinal;
 
       // Remuneration
-      console.log(pièces);
-      pièces = Math.round(ScoreFinal / 100);
-      dBalance.innerText = balance + pièces;
+      balance += Math.round(ScoreFinal / 100);
+      dBalance.innerText = balance;
       dScore.innerText = ScoreFinal;
+      console.log(balance);
 
       // Affichage du resultat
       if (mot === motEssayé[currentRow].join("")) {
-        document.getElementById("ombre").classList.remove("hidden");
-        document.getElementById("congratulations").classList.remove("hidden");
+        document.getElementById("ombre").style.display="flex";
+        document.getElementById("congratulations").style.display='flex';
         // document.getElementById("Resultat").innerText = "Félicitations !!!";
         // document.getElementById("Resultat").style.color = "green";
         // Ajout du score pour les essais restants
         for (i = essai; i < 5; i++) {
           score[i] = score[i - 1];
         }
-        document.getElementById("score").innerText = "Score : " + ScoreFinal;
+        document.getElementById("score").innerText =
+          username + " : " + ScoreFinal;
         scoreTotal += ScoreFinal;
+        partieRéussie+=1;
         saveData(1);
       } else if (essai === 5) {
-        // document.getElementById("Resultat").innerText = "Game Over !!!";
-        // document.getElementById("Resultat").style.color = "red";
-        document.getElementById("gameover").classList.remove("hidden");
+        document.getElementById("ombre").style.display = "flex";
+        document.getElementById("gameover").style.display = "flex";
         document.getElementById("motatrouver").innerText =
           "Le mot à trouver était : " + mot;
         scoreTotal = ScoreFinal;
@@ -335,9 +345,9 @@ function start() {
     //choix de la lettre à devoiler aléatoirement
 
     k = 0;
-    // si la lettre n'a pas déjà été trouvé par l'utilisateur
     // ou s'il n'a pas assez de pièces ou si le jeu n'est pas terminé
-    while (dejaVue === true && pièces >= 50 && currentRow < 5 && k < 5) {
+    // si la lettre n'a pas déjà été trouvé par l'utilisateur
+    while (dejaVue === true && balance >= 50 && currentRow < 5 && k < 5) {
       indexbonus = Math.floor(Math.random() * 4);
       lettrebonus = mot[indexbonus];
       l = document.getElementById(mot[indexbonus]);
@@ -348,7 +358,8 @@ function start() {
         cell.style.backgroundColor = "rgb(0, 255, 30)";
         l.style.backgroundColor = "rgb(0, 255, 30)";
         motEssayé[currentRow][indexbonus] = l.textContent;
-        pièces -= 50;
+        balance -= 50;
+        dBalance.innerText = balance;
       }
     }
   }
@@ -357,7 +368,7 @@ function start() {
     let lettreàEffacer = mot[0];
     nb = 0;
     k = 0;
-    while (nb < 5 && pièces >= 50) {
+    while (nb < 5 && balance >= 50) {
       const id = Math.floor(Math.random() * 25);
       lettreàEffacer = lettres[id].toUpperCase();
       l = document.getElementById(lettreàEffacer);
@@ -366,7 +377,8 @@ function start() {
         nb++;
       }
       if (nb === 5) {
-        pièces -= 50;
+        balance -= 50;
+        dBalance.innerText = balance;
       }
     }
     nb = 0;
@@ -383,20 +395,28 @@ function start() {
     var sound = document.getElementById("clickSound");
     sound.play();
   }
-}
 
-function saveData(R) {
+
+function saveData(R) { // fonction qui enregistre les données de l'utilisateur
   balance += scoreTotal / 100;
-  localStorage.setItem("ScoreTotal", scoreTotal);
-  localStorage.setItem("partieTerminée", partieTerminée + 1);
-  localStorage.setItem("partieReussie", partieRéussie + R);
-  localStorage.setItem("balance", balance + 10 * R);
+  localStorage.setItem(
+    username,
+    JSON.stringify({
+      scoreTotal: 0,
+      partieRéussie: partieRéussie,
+      partieTerminée: partieTerminée+1,
+      balance: balance,
+    })
+  );
+  // localStorage.setItem("ScoreTotal", scoreTotal);
+  // localStorage.setItem("partieTerminée", partieTerminée + 1);
+  // localStorage.setItem("partieReussie", partieRéussie + R);
+  // localStorage.setItem("balance", balance + 10 * R);
 }
 
-function fin() {
+function fin() {  // fonction pour le message à la fin de la partie
   console.log(
     "test " + document.getElementById("congratulations").style.display
   );
   document.getElementById("congratulations").style.display = "none";
 }
-
